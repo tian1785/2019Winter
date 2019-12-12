@@ -96,6 +96,8 @@ public class Main_17780_새로운게임 {
 		isEnd = false;
 		int turn = 1;
 		
+		isEnd= check();
+		
 		while(!isEnd && turn<=1000) {
 			
 			for(int i=0; i<K; i++) {
@@ -115,7 +117,16 @@ public class Main_17780_새로운게임 {
 		System.out.println(Answer);
 		
 	}
-
+	private static boolean check() {
+		for(int i=0; i<N; i++) {
+			for(int j=0; j<N; j++) {
+				if(map[i][j].size()>3) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	private static void play(Piece tmpP, boolean isb) {
 		int r = tmpP.getR();
 		int c = tmpP.getC();

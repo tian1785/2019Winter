@@ -1,0 +1,73 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main_17780_새로운게임 {
+
+	static class piece {
+		int idx, r, c, d;
+
+		public piece(int idx, int r, int c, int d) {
+			super();
+			this.idx = idx;
+			this.r = r;
+			this.c = c;
+			this.d = d;
+		}
+
+		public int getIdx() {
+			return idx;
+		}
+
+		public void setIdx(int idx) {
+			this.idx = idx;
+		}
+
+		public int getR() {
+			return r;
+		}
+
+		public void setR(int r) {
+			this.r = r;
+		}
+
+		public int getC() {
+			return c;
+		}
+
+		public void setC(int c) {
+			this.c = c;
+		}
+
+		public int getD() {
+			return d;
+		}
+
+		public void setD(int d) {
+			this.d = d;
+		}
+
+		@Override
+		public String toString() {
+			return "piece [idx=" + idx + ", r=" + r + ", c=" + c + ", d=" + d + "]";
+		}
+		
+	}
+	
+	
+	static int N, K;
+	static int[][] color;
+	static piece[] ps;
+	static int[] dx = {0,0,0,-1,1};
+	static int[] dy = {0,1,-1,0,0};
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		N = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
+		
+	}
+
+}

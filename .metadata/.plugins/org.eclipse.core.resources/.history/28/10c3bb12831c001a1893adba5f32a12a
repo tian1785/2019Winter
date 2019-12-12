@@ -1,0 +1,108 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Main_4179_불 {
+
+	static int R,C, Answer;
+	static int[][] map;
+	static Queue<int[]> fqueue = new LinkedList<>();
+	static Queue<int[]> jqueue = new LinkedList<>();
+	static int[] dx = {0,0,1,-1};
+	static int[] dy = {1,-1,0,0};
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		R = Integer.parseInt(st.nextToken());
+		C = Integer.parseInt(st.nextToken());
+		
+		map = new int[R][C];
+		
+		int sr=0,sc=0;
+		for(int i=0; i<R; i++) {
+			String s = br.readLine();
+			for(int j=0; j<C; j++) {
+				char k = s.charAt(j);
+				
+				switch (k) {
+				case '#':
+					map[i][j] = 1;
+					break;
+				case 'J':
+					map[i][j] = 3;
+					sr = i; sc = j;
+					jqueue.offer(new int[] {i,j});
+					break;
+				case 'F':
+					map[i][j] = 2;
+					fqueue.offer(new int[] {i,j});
+					break;
+				}
+			}
+		} //입력 완료
+		
+		Answer = 0;
+		
+		escape(sr,sc);
+		
+		if(Answer<0) {
+			System.out.println("IMPOSSIBLE");
+		}else {
+			System.out.println(Answer);
+		}
+	}
+
+	private static void escape(int sr, int sc) {
+		int cnt=1;
+		while(fqueue.isEmpty() || jqueue.isEmpty()) {
+			int fsize = fqueue.size();
+			while(fsize-->0) {
+				int[] current = fqueue.poll();
+				
+				for(int d=0; d<4; d++) {
+					int nr = current[0]+dx[d];
+					int nc = current[1]+dy[d];
+					
+					if(nr>=0 && nc>=0 && nr<R && nc<C && map[nr][nc]!=1 && map[nr][nc] !=2) {
+						map[nr][nc] = 2;
+						fqueue.offer(new int[] {nr,nc});
+					}
+				}
+				
+			}
+			
+			int jsize = jqueue.size();
+			
+			while(jsize-->0) {
+				int[] current = jqueue.poll();
+				
+				for(int d=0; d<4; d++) {
+					int nr = current[0]+dx[d];
+					int nc = current[1]+dy[d];
+					
+					if(nr<0 || nc<0 || nr>=R && nc>=C) {
+						Answer = cnt;
+						return;
+					}else {
+						if(map[nr][nc]==0) {
+							map[nr][nc] = 3;
+							jqueue.offer(new int[] {nr,nc});
+						}
+					}
+					
+				}
+			}
+			
+			cnt++;
+		}
+		
+		Answer = -1;
+		
+	}
+
+}

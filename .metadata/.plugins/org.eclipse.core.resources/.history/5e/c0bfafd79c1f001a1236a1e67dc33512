@@ -51,7 +51,7 @@ public class Main_1697_숨바꼭질 {
 					xx = current[0]*2;
 				}
 				
-				if(xx>=0 && xx<=100000 && !visit[xx]) {
+				if(xx>=0 && xx<100000 && !visit[xx]) {
 					queue.offer(new int[] {xx, current[1]+1});
 					visit[xx] = true;
 				}

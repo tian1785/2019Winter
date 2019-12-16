@@ -5,16 +5,16 @@ import java.util.Scanner;
 public class Main_1697_숨바꼭질 {
 
 	static int Answer;
-	static boolean[] visit= new boolean[100001];
+	static boolean[] visit;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int N = sc.nextInt(); //수빈이가 있는 위치 N
 		int K = sc.nextInt(); //수빈이 동생 위치
+		visit = new boolean[100001];
 		Answer = 0;
 		
 		if( N!=K)
 			bfs(N, K);
-
 		System.out.println(Answer);
 	}
 	
@@ -51,7 +51,7 @@ public class Main_1697_숨바꼭질 {
 					xx = current[0]*2;
 				}
 				
-				if(xx>=0 && xx<=100000 && !visit[xx]) {
+				if(xx>=0 && xx<100000 && !visit[xx]) {
 					queue.offer(new int[] {xx, current[1]+1});
 					visit[xx] = true;
 				}

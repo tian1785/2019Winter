@@ -12,7 +12,9 @@ public class Main_2156_포도주시식 {
 		
 		int D[] = new int[n];
 		
-		
+		for(int i=0; i<n; i++) {
+			
+		}
 		
 	}
 

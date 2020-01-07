@@ -69,7 +69,7 @@ public class Main_18232_텔레포트정거장{
 			for(int i=0, size=tele[clocation].size(); i<size; i++ ) {
 				int tmp = tele[clocation].get(i);
 				
-				if(!visit[tmp]) {
+				if(!visit[tmp] ) {
 					visit[tmp] = true;
 					queue.offer(new int[] {tmp, current[1]+1});
 				}

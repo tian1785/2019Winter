@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 
 public class Main_18232_텔레포트정거장{
 
+	static int N;
 	static ArrayList<Integer>[] tele;
 	static boolean[] visit;
 	public static void main(String[] args) throws IOException {
@@ -15,7 +16,7 @@ public class Main_18232_텔레포트정거장{
 		
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		int N = Integer.parseInt(st.nextToken());
+		N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
 		
 		st = new StringTokenizer(br.readLine());
@@ -55,21 +56,24 @@ public class Main_18232_텔레포트정거장{
 			
 			if(clocation ==e ) return current[1];
 			
-			
 			if(clocation-1>0 && !visit[clocation-1] ) {
+//				if(clocation-1 ==e ) return current[1]+1;
 				visit[clocation-1] = true;
 				queue.offer(new int[] {clocation-1, current[1]+1});
 			}
-			if(clocation+1<300000 && !visit[clocation+1]) {
+			if(clocation+1<=N && !visit[clocation+1]) {
+//				if(clocation+1 ==e ) return current[1]+1;
 				visit[clocation+1] = true;
 				queue.offer(new int[] {clocation+1, current[1]+1});
 			}
 			
 			
-			for(int i=0, size=tele[clocation].size(); i<size; i++ ) {
+			for(int i=0 ; i<tele[clocation].size(); i++ ) {
 				int tmp = tele[clocation].get(i);
 				
-				if(!visit[tmp] ) {
+//				if(tmp ==e ) return current[1]+1;
+				
+				if(!visit[tmp] && tmp>0 && tmp<=N) {
 					visit[tmp] = true;
 					queue.offer(new int[] {tmp, current[1]+1});
 				}

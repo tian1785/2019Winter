@@ -57,6 +57,7 @@ public class Main_4179_불 {
 		}
 	}
 
+
 	private static void escape(int sr, int sc) {
 		int cnt=1;
 		while(!fqueue.isEmpty() || !jqueue.isEmpty()) {

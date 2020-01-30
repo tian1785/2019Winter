@@ -89,21 +89,22 @@ public class Main_1194_달이차오른다가자 {
 	private static void bfs(int sr, int sc) {
 		Queue<State> queue = new LinkedList<>();
 		queue.add(new State(sr, sc, 1));
-		visit[sr][sc] = true;
+//		visit[sr][sc] = true;
 		
 		while(!queue.isEmpty()) {
 			State current = queue.poll();
 			
 			for(int i=0; i<4; i++) {
-				int nr = current[0] + dx[i];
-				int nc = current[1] + dy[i];
+				int nr = current.r + dx[i];
+				int nc = current.c + dy[i];
 				
 				if(nr<0 || nr>=N || nc<0 || nc>=M || map[nr][nc]=='#') break;
 				
 				if(map[nr][nc]=='1') {
-					Answer = current[2];
+					Answer = current.time;
 					return;
 				}
+				boolean[] keys = current.getKeys().clone();
 				
 //				if(!visit[nr][nc]) {
 					if(65<=map[nr][nc] && map[nr][nc]<=70 && !keys[map[nr][nc]+32]) {
@@ -114,8 +115,12 @@ public class Main_1194_달이차오른다가자 {
 						keys[map[nr][nc]] = true;
 					}
 					
-					queue.offer(new int[] {nr, nc, current[2]+1});
-					visit[nr][nc] = true;
+					State ncurrent = new State(nr,nc, current.getTime()+1);
+					ncurrent.setKeys(keys);
+					
+					
+					queue.offer(ncurrent);
+//					visit[nr][nc] = true;
 //				}
 			}
 		}

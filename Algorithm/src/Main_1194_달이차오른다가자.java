@@ -10,7 +10,7 @@ public class Main_1194_달이차오른다가자 {
 
 	static int M, N, Answer;
 	static char[][] map;
-	static boolean[][] visit;
+	static boolean[][][] visit;
 //	static boolean[] keys;
 	static int[] dx = {0,0,1,-1};
 	static int[] dy = {1,-1,0,0};
@@ -24,7 +24,7 @@ public class Main_1194_달이차오른다가자 {
 		
 		map = new char[N][M];
 //		keys = new boolean[103];
-		visit = new boolean[N][M];
+		visit = new boolean[7][N][M];
 		int sr = 0, sc =0;
 		Answer = -1;
 		
@@ -89,7 +89,7 @@ public class Main_1194_달이차오른다가자 {
 	private static void bfs(int sr, int sc) {
 		Queue<State> queue = new LinkedList<>();
 		queue.add(new State(sr, sc, 1));
-//		visit[sr][sc] = true;
+		visit[0][sr][sc] = true;
 		
 		while(!queue.isEmpty()) {
 			State current = queue.poll();
@@ -106,7 +106,7 @@ public class Main_1194_달이차오른다가자 {
 				}
 				boolean[] keys = current.getKeys().clone();
 				
-//				if(!visit[nr][nc]) {
+				if(!visit[nr][nc]) {
 					if(65<=map[nr][nc] && map[nr][nc]<=70 && !keys[map[nr][nc]+32]) {
 						break;
 					}
@@ -120,8 +120,8 @@ public class Main_1194_달이차오른다가자 {
 					
 					
 					queue.offer(ncurrent);
-//					visit[nr][nc] = true;
-//				}
+					visit[nr][nc] = true;
+				}
 			}
 		}
 	}

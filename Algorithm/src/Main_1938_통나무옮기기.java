@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Main_1938_통나무옮기기 {
 
@@ -17,15 +19,70 @@ public class Main_1938_통나무옮기기 {
 		for(int i=0; i<N; i++) {
 			String s = br.readLine();
 			for(int j=0; j<N; j++) {
-				if(s.charAt(j) =='B') {
-					if(!B) {
-						
-					}
-				}
+				map[i][j] = (int)(s.charAt(j)-'0');
 			}
 		}
+		
+		first:
+		for(int i=0; i<N; i++) {
+			for(int j=0; j<N; j++) {
+				if(map[i][j]=='B') {
+					B = true;
+					if(i+1 < N && map[i+1][j]=='B') {
+						start = new Namu(i, j, 0);
+						for(int k=i; k<i+3; k++) {
+							map[k][j] = 0;
+							
+						}
+					}else {
+						start = new Namu(i,j,1);
+						for(int k=j; k<j+3; k++) {
+							map[i][k] = 0;
+							
+						}
+					}
+				}
+				
+				if(map[i][j]=='E') {
+					E = true;
+					if(i+1 < N && map[i+1][j]=='E') {
+						end = new Namu(i, j, 0);
+						for(int k=i; k<i+3; k++) {
+							map[k][j] = 0;
+							
+						}
+					}else {
+						end = new Namu(i,j,1);
+						for(int k=j; k<j+3; k++) {
+							map[i][k] = 0;
+							
+						}
+					}
+				}
+				
+				if(B && E) break first;
+			}
+		}
+		
+		bfs();
 	}
 	
+	private static void bfs() {
+		Queue<Namu> queue = new LinkedList<>();
+		queue.offer(start);
+		
+		while(!queue.isEmpty()) {
+			int size = queue.size();
+			while(size -- >0) {
+				Namu current = queue.poll();
+				
+				
+			}
+			size++;
+		}
+		
+	}
+
 	static class Namu {
 		int sr, sc, direction;
 

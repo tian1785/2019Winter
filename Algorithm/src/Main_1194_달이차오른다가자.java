@@ -11,7 +11,6 @@ public class Main_1194_달이차오른다가자 {
 	static int M, N, Answer;
 	static char[][] map;
 	static boolean[][][] visit;
-//	static boolean[] keys;
 	static int[] dx = {0,0,1,-1};
 	static int[] dy = {1,-1,0,0};
 	
@@ -23,8 +22,7 @@ public class Main_1194_달이차오른다가자 {
 		M = Integer.parseInt(st.nextToken());
 		
 		map = new char[N][M];
-//		keys = new boolean[103];
-		visit = new boolean[7][N][M];
+		visit = new boolean[1<<6][N][M];
 		int sr = 0, sc =0;
 		Answer = -1;
 		
@@ -47,14 +45,16 @@ public class Main_1194_달이차오른다가자 {
 	}
 	
 	static class State{
-		private int r, c, time;
-		private boolean[] keys = new boolean[103];
-		public State(int r, int c, int time) {
+		private int r, c, key;
+		
+		
+		public State(int r, int c, int key) {
 			super();
 			this.r = r;
 			this.c = c;
-			this.time = time;
+			this.key = key;
 		}
+		
 		public int getR() {
 			return r;
 		}
@@ -67,97 +67,61 @@ public class Main_1194_달이차오른다가자 {
 		public void setC(int c) {
 			this.c = c;
 		}
-		public int getTime() {
-			return time;
+		public int getKey() {
+			return key;
 		}
-		public void setTime(int time) {
-			this.time = time;
-		}
-		public boolean[] getKeys() {
-			return keys;
-		}
-		public void setKeys(boolean[] keys) {
-			this.keys = keys;
+		public void setKey(int key) {
+			this.key = key;
 		}
 		@Override
 		public String toString() {
-			return "State [r=" + r + ", c=" + c + ", time=" + time + ", keys=" + Arrays.toString(keys) + "]";
+			return "State [r=" + r + ", c=" + c + ", key=" + key +  "]";
 		}
 		
 	}
 	
 	private static void bfs(int sr, int sc) {
 		Queue<State> queue = new LinkedList<>();
-		queue.add(new State(sr, sc, 1));
+		queue.add(new State(sr, sc, 0));
 		visit[0][sr][sc] = true;
+		int time = 1;
 		
 		while(!queue.isEmpty()) {
-			State current = queue.poll();
-			
-			for(int i=0; i<4; i++) {
-				int nr = current.r + dx[i];
-				int nc = current.c + dy[i];
+			int size = queue.size();
+			while(size-->0) {
+				State current = queue.poll();
 				
-				if(nr<0 || nr>=N || nc<0 || nc>=M || map[nr][nc]=='#') break;
-				
-				if(map[nr][nc]=='1') {
-					Answer = current.time;
-					return;
-				}
-				boolean[] keys = current.getKeys().clone();
-				
-				if(!visit[nr][nc]) {
-					if(65<=map[nr][nc] && map[nr][nc]<=70 && !keys[map[nr][nc]+32]) {
-						break;
+				for(int i=0; i<4; i++) {
+					int nr = current.r + dx[i];
+					int nc = current.c + dy[i];
+					int key = current.key;
+					
+					if(nr<0 || nr>=N || nc<0 || nc>=M || map[nr][nc]=='#') continue;
+					
+					if(map[nr][nc]=='1') {
+						Answer = time;
+						return;
 					}
 					
-					if(97<=map[nr][nc] && map[nr][nc]<=102) {
-						keys[map[nr][nc]] = true;
+					if('A'<=map[nr][nc] && map[nr][nc]<='F') { //키가 없으면  pass 한다
+						if((key & (1<<map[nr][nc]-'A')) == 0)
+							continue;
 					}
 					
-					State ncurrent = new State(nr,nc, current.getTime()+1);
-					ncurrent.setKeys(keys);
+					if('a'<=map[nr][nc] && map[nr][nc]<='f') {
+						key = key | (1<<map[nr][nc]-'a');
+					}
 					
+					if(visit[key][nr][nc])
+						continue;
 					
-					queue.offer(ncurrent);
-					visit[nr][nc] = true;
+					visit[key][nr][nc] = true;
+					queue.offer(new State(nr, nc, key));
 				}
+				
 			}
+			time++;
 		}
 	}
 	
-//	private static void bfs(int sr, int sc) {
-//		Queue<int[]> queue = new LinkedList<>();
-//		queue.add(new int[] {sr,sc, 1});
-//		visit[sr][sc] = true;
-//		
-//		while(!queue.isEmpty()) {
-//			int[] current = queue.poll();
-//			
-//			for(int i=0; i<4; i++) {
-//				int nr = current[0] + dx[i];
-//				int nc = current[1] + dy[i];
-//				
-//				if(nr<0 || nr>=N || nc<0 || nc>=M || map[nr][nc]=='#') break;
-//				
-//				if(map[nr][nc]=='1') {
-//					Answer = current[2];
-//					return;
-//				}
-//				
-////				if(!visit[nr][nc]) {
-//					if(65<=map[nr][nc] && map[nr][nc]<=70 && !keys[map[nr][nc]+32]) {
-//						break;
-//					}
-//					
-//					if(97<=map[nr][nc] && map[nr][nc]<=102) {
-//						keys[map[nr][nc]] = true;
-//					}
-//					
-//					queue.offer(new int[] {nr, nc, current[2]+1});
-//					visit[nr][nc] = true;
-////				}
-//			}
-//		}
-//	}
 }

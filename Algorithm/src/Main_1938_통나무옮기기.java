@@ -33,7 +33,7 @@ public class Main_1938_통나무옮기기 {
 						for(int k=i; k<i+3; k++) {
 							map[k][j] = 0;
 							
-						}
+						} //세로로 길때
 					}else {
 						start = new Namu(i,j,1);
 						for(int k=j; k<j+3; k++) {
@@ -75,13 +75,32 @@ public class Main_1938_통나무옮기기 {
 			int size = queue.size();
 			while(size -- >0) {
 				Namu current = queue.poll();
+				int r = current.getSr();
+				int c = current.getSc();
+				int d = current.getDirection();
 				
+				for(int i=0; i<5; i++) {
+//					int[] check = check(r,c,d,i);
+				}
 				
 			}
 			size++;
 		}
 		
 	}
+
+//	private static int[] check(int r, int c, int d, int i) {
+//		int[] result = {0,0,0,0};
+//		//첫번째는 가능하면 1 불가능하면 0
+//		
+//		if(d==0) { //세로로 길 때
+//			
+//			
+//			
+//		}else { //가로로 길때
+//			
+//		}
+//	}
 
 	static class Namu {
 		int sr, sc, direction;

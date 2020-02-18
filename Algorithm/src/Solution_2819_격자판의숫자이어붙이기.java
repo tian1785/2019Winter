@@ -29,7 +29,7 @@ public class Solution_2819_격자판의숫자이어붙이기 {
 			
 			for(int i=0; i<4; i++) {
 				for(int j=0; j<4; j++) {
-					dfs(i,j,0);
+					dfs(i,j,0,0);
 				}
 			}
 			
@@ -41,12 +41,21 @@ public class Solution_2819_격자판의숫자이어붙이기 {
 	} // end of main
 
 
-	private static void dfs(int i, int j, int k) {
+	/** i, j 좌표, k : 단계, val : 지금까지 지나온 숫자 */
+	private static void dfs(int i, int j, int k, int val) {
+		if (i < 0 || i>=4 || j<0 || j>=4) return;
+		
+		val = val * 10 + m[i][j];
+		
 		if (k==6) {
-			
+			hs.add(val);
 			return;
 		}
 		
+		dfs(i-1, j, k+1, val); //상
+		dfs(i+1, j, k+1, val); //하
+		dfs(i, j-1, k+1, val); //좌
+		dfs(i, j+1, k+1, val); //우		
 		
 	}
 

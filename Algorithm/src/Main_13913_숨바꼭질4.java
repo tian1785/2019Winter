@@ -63,7 +63,7 @@ public class Main_13913_숨바꼭질4 {
 					Time = time+1;
 					return;
 				}
-				
+ 				
 				for(int i=0; i<3; i++) {
 					int nx = 0;
 					switch (i) {
